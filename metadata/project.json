@@ -1,0 +1,32 @@
+{
+  "index": 150,
+  "phase": 2,
+  "batch": 17,
+  "name": "lumen-sim-queue-flow",
+  "planned_name": "lumen-sim-queue-flow",
+  "language": "C#",
+  "category": "Simulations",
+  "goal": "Create a C# reference implementation for queue workflows, centered on diagnostic reporting, negative fixtures, and human-readable error snapshots.",
+  "repository_url": "https://github.com/ZachL111/lumen-sim-queue-flow",
+  "verification_command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1",
+  "model": {
+    "inputs": [
+      "demand",
+      "capacity",
+      "latency",
+      "risk",
+      "weight"
+    ],
+    "threshold": 167,
+    "risk_penalty": 4,
+    "latency_penalty": 2,
+    "weight_bonus": 2,
+    "decision_rule": "accept when score is greater than or equal to threshold, otherwise review"
+  },
+  "quality_gates": [
+    "readme constraint scan",
+    "fixture presence check",
+    "metadata JSON parse",
+    "language verifier"
+  ]
+}
