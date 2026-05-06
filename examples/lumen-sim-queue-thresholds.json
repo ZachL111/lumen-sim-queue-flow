@@ -1,0 +1,17 @@
+{
+  "repo": "lumen-sim-queue-flow",
+  "thresholds": {
+    "signal": 2,
+    "slack": 1,
+    "confidence": 2,
+    "drag": 2,
+    "ship": 153,
+    "watch": 115
+  },
+  "terms": [
+    "input pressure",
+    "state drift",
+    "review cost",
+    "decision risk"
+  ]
+}

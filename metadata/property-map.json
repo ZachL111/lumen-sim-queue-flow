@@ -1,0 +1,28 @@
+{
+  "repo": "lumen-sim-queue-flow",
+  "language": "C#",
+  "category": "Simulations",
+  "goal": "Create a C# reference implementation for queue workflows, centered on diagnostic reporting, negative fixtures, and human-readable error snapshots.",
+  "weights": {
+    "signal": 2,
+    "slack": 1,
+    "confidence": 2,
+    "drag": 2
+  },
+  "thresholds": {
+    "ship": 153,
+    "watch": 115
+  },
+  "properties": [
+    "raising signal cannot reduce score",
+    "raising drag cannot improve score",
+    "lane labels must match configured thresholds",
+    "golden fixture ids must remain unique"
+  ],
+  "fixture_files": [
+    "fixtures/golden/scoreboard.csv",
+    "fixtures/golden/lane-matrix.csv",
+    "fixtures/fuzz/mutations.csv",
+    "fixtures/fuzz/boundary-cases.jsonl"
+  ]
+}
