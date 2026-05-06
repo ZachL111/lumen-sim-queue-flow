@@ -1,0 +1,73 @@
+{
+  "repo": "lumen-sim-queue-flow",
+  "language": "C#",
+  "category": "Simulations",
+  "goal": "Create a C# reference implementation for queue workflows, centered on diagnostic reporting, negative fixtures, and human-readable error snapshots.",
+  "review_model": {
+    "terms": [
+      "input pressure",
+      "state drift",
+      "review cost",
+      "decision risk"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "input pressure",
+      "signal": 67,
+      "slack": 31,
+      "drag": 11,
+      "confidence": 83,
+      "score": 215,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "state drift",
+      "signal": 51,
+      "slack": 49,
+      "drag": 9,
+      "confidence": 92,
+      "score": 216,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "review cost",
+      "signal": 57,
+      "slack": 37,
+      "drag": 32,
+      "confidence": 69,
+      "score": 124,
+      "lane": "watch"
+    },
+    {
+      "name": "recovery",
+      "focus": "decision risk",
+      "signal": 81,
+      "slack": 25,
+      "drag": 13,
+      "confidence": 88,
+      "score": 236,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "input pressure",
+      "signal": 66,
+      "slack": 48,
+      "drag": 19,
+      "confidence": 55,
+      "score": 178,
+      "lane": "ship"
+    }
+  ]
+}

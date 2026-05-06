@@ -1,68 +1,40 @@
 # lumen-sim-queue-flow
 
-`lumen-sim-queue-flow` is a C# project for Simulations. It turns create a C# reference implementation for queue workflows, centered on diagnostic reporting, negative fixtures, and human-readable error snapshots into a small local model with readable fixtures and a direct verification command.
+`lumen-sim-queue-flow` is a C# project in simulations. Its focus is to create a C# reference implementation for queue workflows, centered on diagnostic reporting, negative fixtures, and human-readable error snapshots.
 
-## Reading Lumen Sim Queue Flow
+## Why I Keep It Small
 
-Start with the README, then open `metadata/project.json` to check the constants behind the examples. After that, `fixtures/cases.csv` shows the compact path and `examples/extended_cases.csv` gives a wider look at the same rule.
+The point is to make a small domain rule concrete enough that a reader can change it and immediately see what broke.
 
-## Purpose
+## Lumen Sim Queue Flow Review Notes
 
-The repository exists to keep a technical idea small enough to reason about. The implementation avoids external dependencies where possible, then uses fixtures to make changes easy to review.
+Start with `decision risk` and `review cost`. Those cases create the widest score spread in this repo, so they are the best quick check when the model changes.
 
-## What It Does
+## Included Behavior
 
-- Models input state with deterministic scoring and explicit review decisions.
-- Uses fixture data to keep policy checks changes visible in code review.
-- Includes extended examples for fixture data, including `surge` and `degraded`.
-- Documents local reports tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
+- `fixtures/domain_review.csv` adds cases for input pressure and state drift.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/lumen-sim-queue-walkthrough.md` walks through the case spread.
+- The C# code includes a review path for `decision risk` and `review cost`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Design Sketch
+## Internal Model
 
-The core is a scoring model over demand, capacity, latency, risk, and weight. That keeps input state, policy checks, and fixture data in one explicit decision path. The threshold is 167, with risk penalty 4, latency penalty 2, and weight bonus 2. The C# code keeps the core model in a small static API and runs checks through the executable path.
+The core code exposes a scoring path and the added review layer uses `signal`, `slack`, `drag`, and `confidence`. The domain terms are `input pressure`, `state drift`, `review cost`, and `decision risk`.
 
-## Files Worth Reading
+The C# addition stays small enough to inspect in one sitting.
 
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Setup
-
-Use a normal shell with C# available on `PATH`. The verifier is written as a PowerShell script because the portfolio was assembled on Windows.
-
-## Usage
+## Try It Locally
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Validation
 
-## Verification
+The check exercises the source code and the review fixture. `recovery` is the high score at 236; `edge` is the low score at 124.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Scope
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Fixture Notes
-
-The examples are meant to be readable before they are exhaustive. They cover enough variation to show how latency and risk can pull a decision below the threshold.
-
-## Limits
-
-This code is local-first. It makes no claim about deployed usage and avoids credentials, hosted state, and environment-specific setup.
-
-## Next Directions
-
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Add one more simulations fixture that focuses on a malformed or borderline input.
+No external service is required. A deeper version would add more negative cases and a clearer boundary around invalid input.
